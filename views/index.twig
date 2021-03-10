@@ -1,0 +1,54 @@
+<div class="container">
+	<div id="content">
+		<div class="container-fluid">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pull-left">{{ user_info.login }} <i class="fa fa-user"></i> {{ user_info.firstname }} {{ user_info.lastname }}</div>
+					<div class="pull-right"><a href="{{ logout }}"><i class="fa fa-sign-out" aria-hidden="true"></i> выход</a></div>
+					<div class="clearfix"></div>
+					<h3 class="text-center panel-title">Список задач</h3>
+				</div>
+				<div class="panel-body">
+					{% if success %}
+					<div class="alert alert-success"><i class="fa fa-check-circle"></i> {{ success }}</div>
+					{% endif %}
+					<div class="pull-right">
+						<a href="{{ add_task }}" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Добавить задачу"><i class="fa fa-plus-circle"></i> Добавить задачу</a>
+					</div>
+					<div class="clearfix"></div>
+					{% if tasks %}
+					<div class="table-responsive mt">
+						<table id="pay" class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<td class="text-center">Задача</td>
+									<td style="width: 200px;" class="text-center">Время добавления</td>
+									<td style="width: 100px;"></td>
+								</tr>
+							</thead>
+							<tbody>
+								{% for task in tasks %}
+								<tr>
+									<td class="text-left">{{ task.text }}</td>
+									<td class="text-center">{{ task.date_added }}</td>
+									<td class="text-center">
+										<a href="{{ task.edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+										<div onclick="url='{{ task.delete }}';var delprod = confirm('Удалить задачу?');if(delprod){location.href=url};" class="btn btn-danger"><i class="fa fa-trash-o"></i></div>
+									</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+					{% endif %}
+					<div class="row">
+						<div class="col-sm-12 text-left">{{ pagination|raw }}</div>
+						{% if task_total >= 1 %}
+							<div class="col-sm-12 text-right">{{ results }}</div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
